@@ -1,0 +1,14 @@
+{
+	"servers": {
+		"digiRunner": {
+			"type": "http",
+			"url": "http://192.168.30.124:8081/mcp",
+			"headers": {
+				"digiRunnerEndpoint": "https://192.168.30.124:18080",
+				"username": "manager",
+				"password": "manager123"
+			}
+		}
+	},
+	"inputs": []
+}

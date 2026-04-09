@@ -1,0 +1,28 @@
+services:
+  mcp-apim-connector:
+    image: tpisoftwarehub/tpisoftware-hub:mcp-digiRunner-connector-v1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: mcp-digiRunner-connector
+    restart: unless-stopped
+    ports:
+      - "${HOST_PORT:-8081}:8081"
+    environment:
+      # JVM 調校（可依需求調整）
+      - JAVA_OPTS=${JAVA_OPTS:--Xms256m -Xmx512m}
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 40s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 768M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
